@@ -22,6 +22,14 @@ const exphbs = require('express-handlebars');
 require('./routes')(app);
 
 const configDB = require('./config/database');
+
+if(process.env.MONGODB_URL) {
+  mongoose.connect(process.env.MONGODB_URL);
+}else {
+  mongoose.connect(configDB.url);
+};
+
+
 mongoose.connect(configDB.url);
 
 const db = mongoose.connection;
